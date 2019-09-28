@@ -21,6 +21,7 @@ private:
     QString *findstring;
 private slots:
     void on_pushButton_clicked();
+signals: void signalFromDialog();
 };
 
 #endif // DIALOG_H

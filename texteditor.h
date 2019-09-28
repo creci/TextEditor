@@ -24,7 +24,7 @@ class TextEditor : public QMainWindow
 public:
     explicit TextEditor(QWidget *parent = nullptr);
     ~TextEditor();
-
+    TextEditor(const TextEditor &ptr);
 
 
 private:
@@ -36,7 +36,6 @@ private:
     void closeEvent(QCloseEvent *event);
     void dropEvent(QDropEvent *event);
     void open_file(QString path);
-    void find();
 
 private slots:
     void open();
@@ -44,10 +43,12 @@ private slots:
     void save_as();
     void quit();
     void findDialog();
-    void find_next();
     void on_horizontalSlider_valueChanged(int value);
     void on_comboBox_activated(const QString &arg1);
     void insertImage();
+public slots:
+    void find();
+    void find_next();
 protected:
     virtual void dragEnterEvent(QDragEnterEvent *event){
         if(event->mimeData()->hasUrls()){

@@ -47,15 +47,15 @@ void TextEditor::open()
     }
 }
 void TextEditor::findDialog(){
-    Dialog* find=new Dialog(nullptr,&(TextEditor::FindStringBuff));
+    Dialog* find=new Dialog(this,&(TextEditor::FindStringBuff));
     find->setWindowTitle("Find");
+    find->setModal(true);
     if(find->exec()==QDialog::Accepted){
-        TextEditor::find();
+        delete find;
     }
-    delete find;
-
 
 }
+
 void TextEditor::find(){
     QTextCursor textCursor = ui->textEdit->textCursor();
     textCursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor,1);
