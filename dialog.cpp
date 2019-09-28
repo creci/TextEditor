@@ -5,15 +5,13 @@
 
 Dialog::Dialog(QWidget *parent,QString *string) :
     QDialog(parent),
-    ui(new Ui::Dialog)
+    ui(new Ui::Dialog),findstring(string)
 {
     ui->setupUi(this);
     this->setParent(nullptr);
     connect(ui->pushButton, SIGNAL(clicked()), SLOT(on_pushButton_clicked()));
-   // connect(ui->pushButton, SIGNAL(clicked()), SLOT(accept()));
     connect(ui->pushButton, SIGNAL(clicked()), parent,SLOT(find()));
     connect(ui->pushButton_2, SIGNAL(clicked()), parent,SLOT(find_next()));
-    findstring=string;
     ui->lineEdit->setText(*(findstring));
 }
 
