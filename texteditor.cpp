@@ -49,7 +49,6 @@ void TextEditor::open()
 void TextEditor::findDialog(){
     Dialog* find=new Dialog(this,&(TextEditor::FindStringBuff));
     find->setWindowTitle("Find");
-    find->setModal(true);
     if(find->exec()==QDialog::Accepted){
         delete find;
     }
