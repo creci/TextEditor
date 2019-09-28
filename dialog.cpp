@@ -1,8 +1,7 @@
-#include <QButtonGroup>
-#define DEBUG
 #ifdef DEBUG
 #include <QDebug>
 #endif
+#include <QButtonGroup>
 #include "dialog.h"
 #include "ui_dialog.h"
 

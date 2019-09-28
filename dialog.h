@@ -1,12 +1,10 @@
 #ifndef DIALOG_H
 #define DIALOG_H
-
-#include <QDialog>
-#include "texteditor.h"
-#define DEBUG
 #ifdef DEBUG
 #include <QDebug>
 #endif
+#include <QDialog>
+#include "texteditor.h"
 
 namespace Ui {
 class Dialog;

@@ -6,7 +6,6 @@
 #include <QTextEdit>
 #include "texteditor.h"
 #include "ui_texteditor.h"
-#define DEBUG
 #ifdef DEBUG
 #include <QDebug>
 #endif

@@ -1,10 +1,9 @@
 #ifndef TEXTEDITOR_H
 #define TEXTEDITOR_H
-#include <QMainWindow>
-#define DEBUG
 #ifdef DEBUG
 #include <QDebug>
 #endif
+#include <QMainWindow>
 #include <QDir>
 #include <QFile>
 #include <QCloseEvent>
