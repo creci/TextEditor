@@ -1,0 +1,4 @@
+#ifndef INPUTDIALOG_H
+#define INPUTDIALOG_H
+
+#endif // INPUTDIALOG_H
