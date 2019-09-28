@@ -2,7 +2,11 @@
 #define DIALOG_H
 
 #include <QDialog>
-#include <texteditor.h>
+#include "texteditor.h"
+#define DEBUG
+#ifdef DEBUG
+#include <QDebug>
+#endif
 
 namespace Ui {
 class Dialog;

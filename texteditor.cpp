@@ -1,11 +1,15 @@
-#include "texteditor.h"
-#include "ui_texteditor.h"
-#include "QFileDialog"
-#include "QMessageBox"
-#include "QTextCursor"
+#include <QFileDialog>
+#include <QMessageBox>
+#include <QTextCursor>
 #include <QFontDatabase>
 #include <QtGui>
 #include <QTextEdit>
+#include "texteditor.h"
+#include "ui_texteditor.h"
+#define DEBUG
+#ifdef DEBUG
+#include <QDebug>
+#endif
 TextEditor::TextEditor(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::TextEditor)
@@ -13,8 +17,8 @@ TextEditor::TextEditor(QWidget *parent) :
     ui->setupUi(this);
     setAcceptDrops(true);
     ui->textEdit->setAcceptDrops(false);
-    QFontDatabase Font;
-    QStringList fontlist=Font.families();
+    const QFontDatabase Font;
+    const QStringList fontlist=Font.families();
     ui->comboBox->addItems(fontlist);
     ui->comboBox->setCurrentText(ui->textEdit->font().family());
     connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(open()));
@@ -24,6 +28,9 @@ TextEditor::TextEditor(QWidget *parent) :
     connect(ui->actionSave_As, SIGNAL(triggered()), this, SLOT(save_as()));
     connect(ui->actionFind_Next, SIGNAL(triggered()), this, SLOT(find_next()));
     connect(ui->actionInsert_Image,SIGNAL(triggered()),this,SLOT(insertImage()));
+    #ifdef DEBUG
+    qDebug()<<"debug";
+    #endif
 }
 void TextEditor::open_file(QString path){
     QFile file(path);
@@ -31,19 +38,21 @@ void TextEditor::open_file(QString path){
         QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
         return;
     }
-    TextEditor::path_file=path;
+    path_file=path;
     QTextStream in(&file);
     ui->textEdit->setText(in.readAll());
     file.close();
+    const QStringList parts = file.fileName().split("/");
+    const QString lastBit = parts.at(parts.size()-1);
+    ui->statusBar->showMessage(lastBit);
 }
 
 void TextEditor::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "",
+    const QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "",
         tr("Text Files (*.txt);;C++ Files (*.cpp *.h);;C Files (*.c *.h);;All File(*)"));
-
     if (fileName != "") {
-        TextEditor::open_file(fileName);
+       open_file(fileName);
     }
 }
 void TextEditor::findDialog(){
@@ -84,7 +93,7 @@ void TextEditor::save()
 }
 void TextEditor::save_as()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "",
+    const QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"), "",
     tr("Text Files (*.txt);;C++ Files (*.cpp *.h);;C Files (*.c *.h);;All File(*.*)"));
     if (fileName != "") {
         QFile file(fileName);
@@ -135,7 +144,7 @@ void TextEditor::on_horizontalSlider_valueChanged(int value)
 }
 void TextEditor::insertImage()
 {
-    QString file = QFileDialog::getOpenFileName(this, tr("Select an image"),
+    const QString file = QFileDialog::getOpenFileName(this, tr("Select an image"),
                                   ".", tr("Bitmap Files (*.bmp)\n"
                                     "JPEG (*.jpg *jpeg)\n"
                                     "GIF (*.gif)\n"

@@ -1,17 +1,20 @@
 #ifndef TEXTEDITOR_H
 #define TEXTEDITOR_H
-
 #include <QMainWindow>
+#define DEBUG
+#ifdef DEBUG
 #include <QDebug>
+#endif
 #include <QDir>
 #include <QFile>
 #include <QCloseEvent>
-#include <dialog.h>
 #include <QShortcut>
 #include "QMessageBox"
 #include <QDrag>
 #include <QDropEvent>
 #include <QMimeData>
+#include "dialog.h"
+
 
 namespace Ui {
 class TextEditor;

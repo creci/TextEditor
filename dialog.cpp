@@ -1,7 +1,10 @@
+#include <QButtonGroup>
+#define DEBUG
+#ifdef DEBUG
+#include <QDebug>
+#endif
 #include "dialog.h"
 #include "ui_dialog.h"
-#include "QButtonGroup"
-#include "QDebug"
 
 Dialog::Dialog(QWidget *parent,QString *string) :
     QDialog(parent),
