@@ -15,7 +15,6 @@ TextEditor::TextEditor(QWidget *parent) :
 {
     ui->setupUi(this);
     setAcceptDrops(true);
-    ui->textEdit->setAcceptDrops(false);
     const QFontDatabase Font;
     const QStringList fontlist=Font.families();
     ui->comboBox->addItems(fontlist);
@@ -27,9 +26,6 @@ TextEditor::TextEditor(QWidget *parent) :
     connect(ui->actionSave_As, SIGNAL(triggered()), this, SLOT(save_as()));
     connect(ui->actionFind_Next, SIGNAL(triggered()), this, SLOT(find_next()));
     connect(ui->actionInsert_Image,SIGNAL(triggered()),this,SLOT(insertImage()));
-    #ifdef DEBUG
-    qDebug()<<"debug";
-    #endif
 }
 void TextEditor::open_file(QString path){
     QFile file(path);
@@ -43,7 +39,7 @@ void TextEditor::open_file(QString path){
     file.close();
     const QStringList parts = file.fileName().split("/");
     const QString lastBit = parts.at(parts.size()-1);
-    ui->statusBar->showMessage(lastBit);
+    ui->statusBar->showMessage("File open: "+lastBit);
 }
 
 void TextEditor::open()
@@ -100,7 +96,7 @@ void TextEditor::save_as()
             QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
         } else {
             QTextStream stream(&file);
-            stream <<ui->textEdit->toHtml();// toHtml for save image and text , its only text image delete
+            stream <<ui->textEdit->toPlainText();// toHtml for save image and text , its only text image delete
             stream.flush();
             file.close();
         }

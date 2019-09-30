@@ -34,7 +34,7 @@ private:
     QAction *exitAction;
     QString path_file;
     QString FindStringBuff;
-    int lastzoom=0;
+    int lastzoom=50;
     void closeEvent(QCloseEvent *event);
     void dropEvent(QDropEvent *event);
     void open_file(QString path);
