@@ -55,6 +55,9 @@
         <property name="sizeAdjustPolicy">
          <enum>QAbstractScrollArea::AdjustIgnored</enum>
         </property>
+        <property name="autoFormatting">
+         <set>QTextEdit::AutoAll</set>
+        </property>
         <property name="lineWrapMode">
          <enum>QTextEdit::NoWrap</enum>
         </property>

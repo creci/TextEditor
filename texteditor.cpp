@@ -4,6 +4,7 @@
 #include <QFontDatabase>
 #include <QtGui>
 #include <QTextEdit>
+#include <QPrinter>
 #include "texteditor.h"
 #include "ui_texteditor.h"
 #ifdef DEBUG
@@ -72,8 +73,26 @@ void TextEditor::find_next(){
 
 void TextEditor::save()
 {
+   // ui->textEdit->toPlainText().replace()
+    if(TextEditor::CheckImage()){
+        QMessageBox::critical(this, tr("Error"), tr("Find image save only pdf"));
+    }
     if (!TextEditor::path_file.isEmpty()) {
-        QFile file(TextEditor::path_file);
+        TextEditor::SaveFile();
+    }else {
+ TextEditor::save_as();
+}
+}
+void TextEditor::SaveFile(){
+    if(TextEditor::CheckImage()){
+        if(QFileInfo(TextEditor::path_file).suffix().isEmpty())
+                   TextEditor::path_file.append(".pdf");
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName(TextEditor::path_file);
+        ui->textEdit->document()->print(&printer);
+    }else{
+        QFile file(TextEditor::path_file+".txt");
         if (!file.open(QIODevice::WriteOnly)) {
             TextEditor::save_as();
         } else {
@@ -82,9 +101,7 @@ void TextEditor::save()
             stream.flush();
             file.close();
         }
-    }else {
- TextEditor::save_as();
-}
+    }
 }
 void TextEditor::save_as()
 {
@@ -95,10 +112,8 @@ void TextEditor::save_as()
         if (!file.open(QIODevice::WriteOnly)) {
             QMessageBox::critical(this, tr("Error"), tr("Could not open file"));
         } else {
-            QTextStream stream(&file);
-            stream <<ui->textEdit->toPlainText();// toHtml for save image and text , its only text image delete
-            stream.flush();
-            file.close();
+            TextEditor::path_file=fileName;
+            TextEditor::SaveFile();
         }
     }
 
@@ -170,4 +185,7 @@ void TextEditor::dropEvent(QDropEvent *event)
                TextEditor::open_file(fileName);
            }
        }
+}
+bool TextEditor::CheckImage(){
+    return ui->textEdit->toHtml().contains("<img");
 }

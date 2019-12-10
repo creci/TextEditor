@@ -38,7 +38,8 @@ private:
     void closeEvent(QCloseEvent *event);
     void dropEvent(QDropEvent *event);
     void open_file(QString path);
-
+    bool CheckImage();
+    void SaveFile();
 private slots:
     void open();
     void save();

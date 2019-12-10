@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -34,7 +34,8 @@ HEADERS += \
         texteditor.h
 
 FORMS += \
-        dialog.ui \
+        dialog_find.ui \
+        dialog_replace.ui \
         texteditor.ui
 
 # Default rules for deployment.
